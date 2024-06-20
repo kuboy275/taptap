@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="MobileOptimized" content="176" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>BEEBEE</title>
+  <link rel="stylesheet" href="./assets/css/style.v1.4.css">
+  <link rel="stylesheet" href="./assets/css/responsive.css">
+  <meta name="theme-color" content="#f19e36" />
+
+  <link rel="icon" type="image/x-icon" href="./assets/favicon/favicon.ico">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+  <div class="squad-container">
+    <div class="login">
+      <div class="login-detail">
+        <div class="user-data">
+          <span class="name" id="playername">UNKNOWN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="coin-count-container">
+    <img src="./assets/images/icnbubble.png" width="65px">
+    <h1 class="select-none"></h1>
+
+  </div>
+
+  <div class="coin-container coin-container-ref" id="coin-container">
+    <div class="div">
+      <div class="div-2" id="numRef">0 REFERRALS</div>
+      <div class="div-3" id="numRefSub">+0</div>
+      <div class="div-4">
+        <div class="div-5" id="reflink">My Referrals:</div>
+        <div class="div-6" onclick="copyContent()">Invite a friends</div>
+      </div>
+      <div class="div-no-refer">
+        You don’t have referrals
+      </div>
+    </div>
+    <div class="div-7"><a href='#' id='linkToChange'>#</a></div>
+  </div>
+
+  <div class="menu-container">
+    <div class="menu-bottuns">
+      <a href="ref.html" class="button b-r">
+        <img src="./assets/images/btn_ref-active.png" alt="" width="80px" >
+      </a>
+      <a href="index.html" class="button b-r" id="btntap">
+        <img src="./assets/images/btn_tap.png" alt="" width="80px">
+      </a>
+      <a href="stat.html" class="button">
+        <img src="./assets/images/btn_stat.png" alt="" width="80px">      
+      </a>
+    </div>
+  </div>
+  <script type="application/javascript">
+    const body = document.body;
+    const userName = body.querySelector('#playername');
+    userName.textContent = localStorage.getItem('playerName');
+    const numRef = body.querySelector('#numRef');
+    numRef.textContent = localStorage.getItem('noRef');
+    const h1 = body.querySelector('h1');
+    h1.textContent = localStorage.getItem('coins');
+    const reflink = body.querySelector('#linkToChange');
+    reflink.href = 'https://t.me/beetap_bot?start=r' + localStorage.getItem('playerid');
+    reflink.textContent = 'https://t.me/beetap_bot?start=r' + localStorage.getItem('playerid');
+    const taplink = body.querySelector('#btntap');
+    taplink.href = 'index.html?id=' + localStorage.getItem('playerid');
+    const copyContent = async () => {
+      try {
+        await navigator.clipboard.writeText('https://t.me/beetap_bot?start=r' + localStorage.getItem('playerid'));
+        alert('Content copied to clipboard');
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
+    }
+  </script>
+  <style>
+    .div {
+      align-items: center;
+      display: flex;
+      max-width: 500px;
+      flex-direction: column;
+      font-weight: 800;
+      font-family: "Sora", sans-serif;
+      margin: 0 auto;
+    }
+
+    .div-2 {
+      color: #1f1630;
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .div-3 {
+      justify-content: center;
+      align-items: center;
+      border-radius: 48px;
+      backdrop-filter: blur(6px);
+      border-color: rgba(194, 147, 251, 0.2);
+      border-style: solid;
+      border-width: 4px;
+      background-color: var(--Neutral-N0, #fff);
+      margin-top: 12px;
+      width: 100%;
+      max-width: 250px;
+      color: #00a17a;
+      white-space: nowrap;
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 32px;
+    }
+
+    .div-4 {
+      justify-content: center;
+      align-self: stretch;
+      display: flex;
+      margin-top: 40px;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .div-5 {
+      color: #1f1630;
+      margin: auto 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .div-6 {
+      background: linear-gradient(87.56deg, #8245F5 2.41%, #E8C2FF 148.49%);
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50px;
+      padding: 10px 25px;
+      border: 1px solid #C293FB33;
+    }
+
+    .div-no-refer {
+      margin-top: 50px;
+      font-weight: 800;
+      font-size: 24px;
+      color: #4307B4;
+      text-align: center;
+    }
+
+    .div-7 {
+      color: #4307b4;
+      margin-top: 42px;
+      font: 24px Sora, sans-serif;
+      display: none;
+    }
+  </style>
+</body>
+
+</html>

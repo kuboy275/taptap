@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="MobileOptimized" content="176" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>BEEBEE</title>
+    <link rel="stylesheet" href="./assets/css/style.v1.4.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
+    <meta name="theme-color" content="#f19e36" />
+
+    <link rel="icon" type="image/x-icon" href="./assets/favicon/favicon.ico">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+    <div class="squad-container">
+        <div class="login">
+            <div class="login-detail">
+                <div class="user-data">
+                    <span class="name" id="playername">UNKNOWN</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="coin-count-container">
+        <img src="./assets/images/icnbubble.png" width="65px">
+        <h1 class="select-none"></h1>
+
+    </div>
+
+    <div class="coin-container" id="coin-container">
+        <!-- <span>+1</span> -->
+        <img src="./assets/images/main_char.png" id="coin" class="select-none" height="190px"
+            style="margin-left: 10px; margin-right: 20px;" />
+        <!-- <img src="./assets/images/man_stick.png" id="stick" class="select-none" height="120px" style="margin-left: -43px;z-index: 999;margin-top: 55px;"/> -->
+        <img src="./assets/images/dogmeme.png" id="dog_meme" class="select-none" height="150px"
+            style="margin-left: -63px;z-index: 1;margin-top: 55px;" />
+    </div>
+
+    <div class="menu-container">
+        <div class="power">
+            <img src="./assets/images/thunder.png" width="40px">
+            <div class="power-count">
+                <span id="power" class="select-none">0</span>
+                <span class="select-none" id="total">/0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <div class="menu-bottuns">
+            <a href="ref.html" class="button b-r">
+                <img src="./assets/images/btn_ref.png" alt="" width="80px">
+            </a>
+            <a href="index.html" class="button b-r" id="btntap">
+                <img src="./assets/images/btn_tap-active.png" alt="" width="80px">
+            </a>
+            <a href="stat.html" class="button">
+                <img src="./assets/images/btn_stat.png" alt="" width="80px">
+            </a>
+        </div>
+    </div>
+
+
+    <script src="./assets/js/main.v2.3.8.js"></script>
+    <script type="application/javascript">
+        const asyncGetCall = async () => {
+            var dtbody = JSON.stringify({
+                "id": localStorage.getItem('playerid'),
+                "score": localStorage.getItem('coins')
+            });
+
+            try {
+
+                //console.log(dtbody);
+                const response = await fetch("https://api.tongag.lol/uptscoring/", {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: dtbody
+                });
+                //console.log(response);
+                var playtime = new Date();
+                localStorage.setItem('lastplaytime', playtime.getTime());
+                const data = await response.json();
+                setTimeout(1000);
+            } catch (error) {
+                // enter your logic for when there is an error (ex. error toast)
+                alert(error);
+            }
+        }
+        const TongagApp = {
+            initData: Telegram.WebApp.initData || '',
+            initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
+            MainButton: Telegram.WebApp.MainButton,
+
+            init(options) {
+                document.body.style.visibility = '';
+                Telegram.WebApp.ready();
+                Telegram.WebApp.MainButton.setParams({
+                    text: 'Exit Game',
+                    is_visible: true
+                }).onClick(TongagApp.close);
+            },
+            expand() {
+                Telegram.WebApp.expand();
+            },
+            close() {
+                var playtime = new Date();
+                localStorage.setItem('lastplaytime', playtime.getTime());
+                asyncGetCall();
+                setTimeout(3000);
+                Telegram.WebApp.close();
+            }
+        }
+        TongagApp.init();
+
+    </script>
+</body>
+
+</html>
