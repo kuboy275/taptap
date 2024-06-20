@@ -107,7 +107,7 @@ imagecontainer.addEventListener('click' , (e)=> {
    //alert("x : "+x + "; y: " +y);
     // imageStick.src="./assets/images/man_stick_hit.png";
     imageMainchar.src="./assets/images/main_char-active.png";
-	imageDogmeme.src="/assets/images/dogmeme_cry.png";	
+	imageDogmeme.src="./assets/images/dogmeme_cry.png";	
     imageDogmeme.style.zIndex  = "-100";
 	
     if(x < 150 & y < 150){
