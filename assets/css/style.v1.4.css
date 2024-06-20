@@ -192,9 +192,13 @@ background-position: center center;
     margin-right: 0.5rem;
     width: 33%;
 }
+.power img {
+    flex-shrink: 0;
+}
 .power-count {
     display: flex;
     align-items: center;
+    margin-left: 10px;
 }
 .power-count span {
     color: #1F1630;
